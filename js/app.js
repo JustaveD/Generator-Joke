@@ -1,32 +1,27 @@
-console.log('Got it!');
-
 const jokeContainer = document.querySelector('#joke-container');
 const jokeText = document.querySelector('#joke');
 const jokeAuthor = document.querySelector('#author');
 const twitterBtn = document.querySelector('#twitter');
 const newJokeBtn = document.querySelector('#new-joke');
 const loader = document.querySelector('#loader');
+let countErrorWhenGetJokeFromAPI = 0;
 
-// Show loader function
-function loading() {
+function showSpinnerLoading() {
     loader.hidden = false;
     jokeContainer.hidden = true;
 }
 
-// Complete loading, show container, hidden loader
-function complete() {
+function removeSpinnerLoading() {
     if(!loader.hidden){
         loader.hidden = true;
         jokeContainer.hidden = false;
     }
 }
 
-// Get joke from API
+async function getJokeFromAPI(){
+    showSpinnerLoading();
 
-async function getJoke(){
-
-    // Show loading 
-    loading();
+    countErrorWhenGetJokeFromAPI++;
     const apiUrl = 'https://api.chucknorris.io/jokes/random';
 
     try{
@@ -41,22 +36,22 @@ async function getJoke(){
             jokeText.classList.remove('long-joke');
         }
         jokeText.innerText = data.value;
-
-        // Author alway isn't Duy, is it!
         jokeAuthor.innerText = 'Isn\'t Duy ♫';
 
-        // Stop loading, show joke container
-        complete();
+        removeSpinnerLoading();
+        countErrorWhenGetJokeFromAPI = 0;
     }
     catch(error){
-        getQuote();
-        console.log('Whoops, no quote here ', error);
+        if(countErrorWhenGetJokeFromAPI<10){
+            getJokeFromAPI();
+        }
+        else{
+            console.log('Whoops! There are no joke', error);
+        }
     }
 }
 
-// Tweet Joke
-function tweetJoke(){
-
+function tweetJokeOnTwitter(){
     const joke = jokeText.innerText;
     const author = jokeAuthor.innerText;
     const twitterUrl = `https://twitter.com/intent/tweet?text=${joke}-${author}`;
@@ -65,9 +60,8 @@ function tweetJoke(){
 }
 
 // Event Listeners
-newJokeBtn.addEventListener('click', getJoke);
-twitterBtn.addEventListener('click', tweetJoke);
+newJokeBtn.addEventListener('click', getJokeFromAPI);
+twitterBtn.addEventListener('click', tweetJokeOnTwitter);
 
 // On load
-
-getJoke();
+getJokeFromAPI();

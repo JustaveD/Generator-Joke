@@ -40,6 +40,12 @@ body{
 
 .joke-text {
     font-size: 2.75rem;
+    
+}
+
+::selection{
+    background-color:#f5cac3;
+    color: #06d6a0;
 }
 
 .long-joke {
