@@ -29,7 +29,7 @@ body{
 
 }
 
-.quote-container {
+.joke-container {
     width: auto;
     max-width: 900px;
     padding: 20px 30px;
@@ -38,11 +38,11 @@ body{
     box-shadow: 0 10px 10px 10px rgba(0, 0, 0, 0.2);
 }
 
-.quote-text {
+.joke-text {
     font-size: 2.75rem;
 }
 
-.long-quote {
+.long-joke {
     font-size: 2rem;
 }
 
@@ -50,7 +50,7 @@ body{
     font-size: 4rem;
 }
 
-.quote-author {
+.joke-author {
     margin-top: 15px;
     font-size: 2rem;
     font-weight: 400;
@@ -97,7 +97,7 @@ button:active {
 
 /* Media query: tablet and smaller */
 @media screen and (max-width:1000px) {
-    .quote-container {
+    .joke-container {
         margin: auto 10px;
     }
     .qoute-text {
