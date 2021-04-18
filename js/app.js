@@ -4,16 +4,16 @@ console.log('Got it!');
 
 async function getQuote(){
     
-    const apiUrl = 'http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json';
+    const apiUrl = 'https://api.chucknorris.io/jokes/random';
 
     try{
         const response = await fetch(apiUrl);
         const data = await response.json();
         
-        console.log(data);
+        console.log(data.value);
     }
     catch(error){
-        // getQuote();
+        getQuote();
         console.log('Whoops, no quote here ', error);
     }
 }
