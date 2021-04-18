@@ -5,11 +5,28 @@ const jokeText = document.querySelector('#joke');
 const jokeAuthor = document.querySelector('#author');
 const twitterBtn = document.querySelector('#twitter');
 const newJokeBtn = document.querySelector('#new-joke');
+const loader = document.querySelector('#loader');
+
+// Show loader function
+function loading() {
+    loader.hidden = false;
+    jokeContainer.hidden = true;
+}
+
+// Complete loading, show container, hidden loader
+function complete() {
+    if(!loader.hidden){
+        loader.hidden = true;
+        jokeContainer.hidden = false;
+    }
+}
 
 // Get joke from API
 
 async function getJoke(){
-    
+
+    // Show loading 
+    loading();
     const apiUrl = 'https://api.chucknorris.io/jokes/random';
 
     try{
@@ -27,6 +44,9 @@ async function getJoke(){
 
         // Author alway isn't Duy, is it!
         jokeAuthor.innerText = 'Isn\'t Duy ♫';
+
+        // Stop loading, show joke container
+        complete();
     }
     catch(error){
         getQuote();
